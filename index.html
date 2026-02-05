@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Hey Life</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#133666">
+    <meta name="description" content="Grow in Spirit, Soul and Body with Hey Life.">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="https://heychurch.de/favicon.ico">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- html2canvas for image sharing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- App & Tailwind Configuration -->
+    <script>
+        /**
+         * ------------------------------------------------------------
+         * APP CONFIGURATION
+         * ------------------------------------------------------------
+         */
+        window.HEYCHURCH_APP_CONFIG = {
+            GEMINI_API_KEY: 'AIzaSyAsJSYItpciObN1EnKeaV8qZN4K61IUiFo', 
+            YOUTUBE_API_KEY: 'AIzaSyDAc4NuiyX38lQ-EcMw6fBZUkwC93JpICE',
+            PAYPAL_CLIENT_ID: '', 
+            FIREBASE_CONFIG: {
+                apiKey: "AIzaSyA3JBf5RXRGqJjuNQB_NbHo5cEdrzsMOJI",
+                authDomain: "gen-lang-client-0268998518.firebaseapp.com",
+                projectId: "gen-lang-client-0268998518",
+                storageBucket: "gen-lang-client-0268998518.firebasestorage.app",
+                messagingSenderId: "268759953231",
+                appId: "1:268759953231:web:b192e0c5771328c9dc9f3a",
+                measurementId: "G-5054ZE62FK"
+            }
+        };
+
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'hey-church-bg': '#133666',
+                'hey-church-red': '#FF755D',
+                'hey-church-orange': {
+                  300: '#FFB86C',
+                  400: '#FF982B',
+                  500: '#FF755D',
+                  600: '#EF6D4D',
+                  700: '#E85A37',
+                  900: '#2E1C17',
+                },
+                'hey-church-blue': '#3B82F6',
+                'hey-church-green': '#10B981',
+                'hey-church-purple': '#8B5CF6',
+                'hey-church-yellow': '#FBBF24',
+              },
+              animation: {
+                'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                'spin-slow': 'spin 8s linear infinite',
+                'progress-indefinite': 'progress-indefinite 2s linear infinite',
+              },
+              keyframes: {
+                shake: {
+                  '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                  '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                  '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                  '40%, 60%': { transform: 'translate3d(4px, 0, 0)' },
+                },
+                'progress-indefinite': {
+                  '0%': { transform: 'translateX(-100%)' },
+                  '100%': { transform: 'translateX(200%)' }
+                }
+              }
+            }
+          }
+        }
+    </script>
+    
+    <script type="importmap">
+{
+  "imports": {
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
+    "firebase/auth": "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js",
+    "firebase/firestore": "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.6.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.553.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "@paypal/react-paypal-js": "https://aistudiocdn.com/@paypal/react-paypal-js@^8.9.2"
+  }
+}
+</script>
+
+    <style>
+        body {
+            overscroll-behavior-y: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        
+        input, textarea {
+            user-select: text;
+        }
+
+        .safe-pb {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        input:-webkit-autofill,
+        textarea:-webkit-autofill,
+        select:-webkit-autofill {
+            -webkit-text-fill-color: white !important;
+            -webkit-box-shadow: 0 0 0px 1000px #374151 inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #133666; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 10px;
+        }
+    </style>
+<!-- <link rel="stylesheet" href="/index.css"> -->
+</head>
+<body class="bg-hey-church-bg text-white antialiased overflow-x-hidden">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
