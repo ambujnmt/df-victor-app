@@ -206,7 +206,9 @@ export interface PostUser {
 export interface Comment {
     user: PostUser;
     text: string;
+    timestamp: string;
 }
+
 
 export interface Post {
   id: string;

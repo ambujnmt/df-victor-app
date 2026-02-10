@@ -258,7 +258,8 @@ const HomePage: React.FC = () => {
               <div className="relative z-10">
                   <div className="flex justify-between items-start mb-6">
                     <div className="bg-white/10 text-white/90 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] inline-block border border-white/20 backdrop-blur-sm shadow-inner">
-                        TODAY'S SPIRIT SNACK
+                        {t('spirit_snack.today')}
+
                     </div>
                     <button 
                         onClick={() => handleShare(`${t(spiritSnack.titleKey)}: "${t(spiritSnack.verseKey)}"`, "Daily Spirit Snack")}
@@ -276,7 +277,7 @@ const HomePage: React.FC = () => {
 
                   <div className="mb-12 pl-6 border-l-[4px] border-hey-church-yellow relative">
                       <p className="text-2xl md:text-3xl font-medium text-white leading-relaxed italic font-serif opacity-95">
-                          "{t(spiritSnack.verseKey)}"
+                          {t(spiritSnack.prayerKey)}
                       </p>
                   </div>
 
@@ -285,11 +286,12 @@ const HomePage: React.FC = () => {
                         onClick={() => setShowGuidedPrayer(true)} 
                         className="bg-transparent border-2 border-white/30 text-white px-8 py-2.5 rounded-full font-black text-xs uppercase tracking-[0.2em] transition-all active:scale-95 hover:bg-white/10 shadow-xl"
                     >
-                        LET'S PRAY
+                        {t('home.letsPray')}
+
                     </button>
                     
                     <p className="text-xl font-black text-hey-church-yellow uppercase tracking-tighter drop-shadow-md pb-1">
-                        {spiritSnack.reference}
+                        {t(spiritSnack.verseKey)}
                     </p>
                   </div>
               </div>
