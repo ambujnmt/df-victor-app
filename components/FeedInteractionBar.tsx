@@ -46,14 +46,17 @@ export const FeedInteractionBar: React.FC<FeedInteractionBarProps> = ({ post, cu
     const handleSendComment = async () => {
         if (!commentText.trim()) return;
 
-        const newComment: Comment = {
-            user: {
-                id: currentUser.id,
-                name: currentUser.name,
-                avatar: currentUser.avatar
-            },
-            text: commentText.trim()
-        };
+const newComment: Comment = {
+    user: {
+        id: currentUser.id,
+        name: currentUser.name,
+        avatar: currentUser.avatar
+    },
+    text: commentText.trim(),
+    timestamp: new Date().toISOString()
+};
+
+
 
         const tempCommentText = commentText;
         setCommentText('');
@@ -62,9 +65,9 @@ export const FeedInteractionBar: React.FC<FeedInteractionBarProps> = ({ post, cu
             await addCommentToPost(post.id, newComment);
             // Parent usually handles the feed refresh or uses onSnapshot for real-time updates
         } catch (err) {
-            console.error("Failed to add comment", err);
+            // console.error("Failed to add comment", err);
             setCommentText(tempCommentText);
-            alert("Failed to post comment.");
+            // alert("Failed to post comment.");
         }
     };
 

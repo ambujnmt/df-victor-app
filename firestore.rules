@@ -56,11 +56,13 @@ service cloud.firestore {
     }
 
     // --- Posts (Community Feed) ---
-    match /posts/{postId} {
-      allow read: if true;
-      allow create: if isSignedIn();
-      allow update, delete: if resource.data.user.id == request.auth.uid || isAdmin();
-    }
+ match /posts/{postId} {
+  allow read: if true;
+  allow create: if isSignedIn();
+  allow update: if isSignedIn();
+  allow delete: if resource.data.user.id == request.auth.uid || isAdmin();
+}
+
 
     // --- Hey Fams ---
     match /heyFams/{famId} {

@@ -29,20 +29,20 @@ const HeyShotCard: React.FC<{ session: Session }> = ({ session }) => {
             <div className="absolute inset-0 bg-gray-900">
                 {!isPlaying ? (
                     <div className="relative w-full h-full cursor-pointer group" onClick={() => setIsPlaying(true)}>
-                        <img 
-                            src={session.thumbnail || `https://img.youtube.com/vi/${session.videoId}/hqdefault.jpg`} 
-                            alt={session.title} 
+                        <img
+                            src={session.thumbnail || `https://img.youtube.com/vi/${session.videoId}/hqdefault.jpg`}
+                            alt={session.title}
                             className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
                             <div className="bg-white/20 backdrop-blur-md p-6 rounded-full border border-white/30 shadow-[0_0_30px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform">
-                                <Play size={48} className="text-white fill-white ml-2"/>
+                                <Play size={48} className="text-white fill-white ml-2" />
                             </div>
                         </div>
                     </div>
                 ) : (
                     <div className="relative w-full h-full overflow-hidden pointer-events-none">
-                         <iframe 
+                        <iframe
                             src={`https://www.youtube.com/embed/${session.videoId}?autoplay=1&modestbranding=1&rel=0&controls=0&playsinline=1&loop=1&playlist=${session.videoId}`}
                             title={session.title}
                             className="absolute top-1/2 left-1/2 w-[300%] h-full -translate-x-1/2 -translate-y-1/2 pointer-events-auto object-cover"
@@ -64,14 +64,13 @@ const HeyShotCard: React.FC<{ session: Session }> = ({ session }) => {
                         {session.title}
                     </h2>
                 </div>
-                
-                <div 
-                    className={`w-full mt-2 transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1) transform ${
-                        showInteractions ? 'translate-x-0 opacity-100' : 'translate-x-[20%] opacity-0'
-                    }`}
+
+                <div
+                    className={`w-full mt-2 transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1) transform ${showInteractions ? 'translate-x-0 opacity-100' : 'translate-x-[20%] opacity-0'
+                        }`}
                 >
                     <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-2 border border-white/10 shadow-lg">
-                        <InteractionBar 
+                        <InteractionBar
                             initialLikes={Math.floor(Math.random() * 5000) + 500}
                             initialComments={Math.floor(Math.random() * 200) + 20}
                             initialShares={Math.floor(Math.random() * 1000) + 100}
@@ -103,25 +102,25 @@ const CourseCard: React.FC<{ course: Course; isLocked: boolean; onInvite: (c: Co
 
     return (
         <div className={`bg-gray-800 rounded-xl overflow-hidden mb-4 transition-all border border-gray-700 shadow-md ${isLocked ? 'opacity-75' : ''}`}>
-            <div 
+            <div
                 className="p-4 flex justify-between items-center cursor-pointer hover:bg-gray-750"
                 onClick={() => !isLocked && setExpanded(!expanded)}
             >
                 <div className="flex items-center">
-                    <img src={course.thumbnail} alt={course.title} className="w-14 h-14 rounded-lg object-cover mr-4 shadow-sm"/>
+                    <img src={course.thumbnail} alt={course.title} className="w-14 h-14 rounded-lg object-cover mr-4 shadow-sm" />
                     <div>
                         <h3 className="font-bold text-white text-lg leading-tight">{course.title}</h3>
                         <p className="text-xs text-gray-400 mt-1">{course.sessions.length} Sessions</p>
                     </div>
                 </div>
-                
+
                 {isLocked ? (
-                    <Lock size={20} className="text-gray-500"/>
+                    <Lock size={20} className="text-gray-500" />
                 ) : (
                     <div className="flex items-center space-x-3">
                         {/* Invite Button for Leaders */}
                         {(user?.role === 'leader' || user?.role === 'admin') && (
-                            <button 
+                            <button
                                 onClick={(e) => { e.stopPropagation(); onInvite(course); }}
                                 className="p-2 bg-hey-church-blue/10 text-hey-church-blue rounded-lg hover:bg-hey-church-blue/20 transition-colors"
                                 title="Invite to Course"
@@ -129,13 +128,13 @@ const CourseCard: React.FC<{ course: Course; isLocked: boolean; onInvite: (c: Co
                                 <UserPlus size={18} />
                             </button>
                         )}
-                        
+
                         <div className="mr-2 text-right hidden sm:block">
                             <div className="w-20 bg-gray-700 h-1.5 rounded-full mt-1">
                                 <div className="bg-hey-church-green h-1.5 rounded-full transition-all" style={{ width: `${progress}%` }}></div>
                             </div>
                         </div>
-                        <ChevronDown size={20} className={`text-gray-400 transition-transform ${expanded ? 'rotate-180' : ''}`}/>
+                        <ChevronDown size={20} className={`text-gray-400 transition-transform ${expanded ? 'rotate-180' : ''}`} />
                     </div>
                 )}
             </div>
@@ -145,8 +144,8 @@ const CourseCard: React.FC<{ course: Course; isLocked: boolean; onInvite: (c: Co
                     {course.sessions.map((session, idx) => {
                         const isCompleted = user?.sessionProgress?.[session.id] === 'completed';
                         return (
-                            <Link 
-                                key={session.id} 
+                            <Link
+                                key={session.id}
                                 to={`/academy/${course.id}/session/${session.id}`}
                                 className="flex items-center p-3 rounded-lg hover:bg-gray-800 transition-colors group"
                             >
@@ -154,7 +153,7 @@ const CourseCard: React.FC<{ course: Course; isLocked: boolean; onInvite: (c: Co
                                 <div className="flex-grow min-w-0">
                                     <p className={`text-sm font-medium truncate ${isCompleted ? 'text-gray-400 line-through decoration-gray-600' : 'text-white'}`}>{session.title}</p>
                                 </div>
-                                {isCompleted ? <CheckCircle size={18} className="text-hey-church-green flex-shrink-0 ml-2"/> : <PlayCircle size={18} className="text-gray-600 group-hover:text-white flex-shrink-0 ml-2"/>}
+                                {isCompleted ? <CheckCircle size={18} className="text-hey-church-green flex-shrink-0 ml-2" /> : <PlayCircle size={18} className="text-gray-600 group-hover:text-white flex-shrink-0 ml-2" />}
                             </Link>
                         )
                     })}
@@ -165,11 +164,11 @@ const CourseCard: React.FC<{ course: Course; isLocked: boolean; onInvite: (c: Co
 };
 
 const PathCard: React.FC<{ path: any; onClick: () => void; progress: number }> = ({ path, onClick, progress }) => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const Icon = path.icon;
 
     return (
-        <button 
+        <button
             onClick={onClick}
             className="w-full text-left relative overflow-hidden rounded-2xl shadow-xl mb-6 group transition-all hover:scale-[1.02] active:scale-95"
         >
@@ -203,7 +202,7 @@ const PathCard: React.FC<{ path: any; onClick: () => void; progress: number }> =
 };
 
 const AcademyPage: React.FC = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const { user } = useAuth();
     const [activePathId, setActivePathId] = useState<string | null>(null);
     const [courses, setCourses] = useState<Course[]>([]);
@@ -221,7 +220,7 @@ const AcademyPage: React.FC = () => {
     }, []);
 
     const pathProgress = useMemo(() => {
-        const progressMap: {[key: string]: number} = {};
+        const progressMap: { [key: string]: number } = {};
         PATHS.forEach(path => {
             const pathCourses = courses.filter(c => c.pathId === path.id);
             if (pathCourses.length === 0) {
@@ -237,9 +236,12 @@ const AcademyPage: React.FC = () => {
             progressMap[path.id] = totalSessions > 0 ? (completedSessions / totalSessions) * 100 : 0;
         });
         return progressMap;
-    }, [courses, user]);
+    }, [courses, user, language]); // ✅ ADD language
 
-    const activePath = PATHS.find(p => p.id === activePathId);
+    const activePath = useMemo(
+        () => PATHS.find(p => p.id === activePathId),
+        [activePathId, language]
+    );
     const mainPaths = PATHS.filter(p => p.id !== 'hey_shots');
 
     const heyShotSessions = useMemo(() => {
@@ -251,7 +253,7 @@ const AcademyPage: React.FC = () => {
         .filter(c => c.pathId === activePathId)
         .sort((a, b) => a.order - b.order);
 
-    if (loading) return <div className="min-h-screen bg-hey-church-bg flex items-center justify-center"><Loader2 className="animate-spin text-white h-10 w-10"/></div>;
+    if (loading) return <div className="min-h-screen bg-hey-church-bg flex items-center justify-center"><Loader2 className="animate-spin text-white h-10 w-10" /></div>;
 
     if (activePathId === 'hey_shots') {
         const allShots = filteredCourses.flatMap(c => c.sessions);
@@ -263,7 +265,7 @@ const AcademyPage: React.FC = () => {
                     </button>
                     <div className="ml-4">
                         <h1 className="text-xl font-extrabold uppercase tracking-widest text-hey-church-red drop-shadow-md leading-none">Hey Shots</h1>
-                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Swipe for more</p>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{t('academy.swipe')}</p>
                     </div>
                 </div>
                 <div className="flex-grow flex items-center overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 py-20 gap-4">
@@ -278,23 +280,23 @@ const AcademyPage: React.FC = () => {
         return (
             <div className="bg-hey-church-bg min-h-screen text-white p-4 pb-24">
                 <button onClick={() => setActivePathId(null)} className="flex items-center text-hey-church-orange-400 mb-6 font-bold hover:text-white transition-colors">
-                    <ArrowLeft size={20} className="mr-2"/> Back to Paths
+                    <ArrowLeft size={20} className="mr-2" /> Back to Paths
                 </button>
                 <div className={`p-6 rounded-2xl bg-gradient-to-br ${activePath.color} mb-8 shadow-xl relative overflow-hidden`}>
-                    <activePath.icon size={100} className="absolute -right-4 -bottom-4 text-white opacity-10 transform rotate-12"/>
+                    <activePath.icon size={100} className="absolute -right-4 -bottom-4 text-white opacity-10 transform rotate-12" />
                     <h1 className="text-3xl font-extrabold text-white uppercase tracking-tight relative z-10">{t(activePath.title)}</h1>
                     <p className="text-white/90 text-sm mt-2 font-medium relative z-10">{t(activePath.desc)}</p>
                 </div>
                 <div className="space-y-4">
                     {filteredCourses.map(course => (
-                        <CourseCard 
-                            key={course.id} 
-                            course={course} 
-                            isLocked={!course.isPublished} 
+                        <CourseCard
+                            key={course.id}
+                            course={course}
+                            isLocked={!course.isPublished}
                             onInvite={(c) => setInviteModalCourse(c)}
                         />
                     ))}
-                    {filteredCourses.length === 0 && <div className="text-center py-16 text-gray-500 bg-gray-800/50 rounded-2xl border border-gray-700/50"><BookOpen size={48} className="mx-auto mb-4 opacity-30"/><p>Coming Soon</p></div>}
+                    {filteredCourses.length === 0 && <div className="text-center py-16 text-gray-500 bg-gray-800/50 rounded-2xl border border-gray-700/50"><BookOpen size={48} className="mx-auto mb-4 opacity-30" /><p>{t('common.comingSoon')}</p></div>}
                 </div>
                 {inviteModalCourse && user && (
                     <InviteFriendModal
@@ -314,15 +316,22 @@ const AcademyPage: React.FC = () => {
 
     return (
         <div className="bg-hey-church-bg min-h-screen text-white p-4 pb-24">
-            <h1 className="text-3xl font-extrabold uppercase mb-2">Academy</h1>
-            <p className="text-gray-400 text-sm mb-8">Choose a path to begin your journey.</p>
+            <h1 className="text-3xl font-extrabold uppercase mb-2">{t('nav.academy')}</h1>
+            <p className="text-gray-400 text-sm mb-8">{t('academy.subtitle')}</p>
             <div className="space-y-4">
                 <div className="space-y-4">
-                    {mainPaths.map(path => <PathCard key={path.id} path={path} onClick={() => setActivePathId(path.id)} progress={pathProgress[path.id] || 0} />)}
+                    {mainPaths.map(path => (
+                        <PathCard
+                            key={`${path.id}-${language}`} // ✅ FORCE re-render
+                            path={path}
+                            onClick={() => setActivePathId(path.id)}
+                            progress={pathProgress[path.id] || 0}
+                        />
+                    ))}
                 </div>
                 {heyShotSessions.length > 0 && (
                     <div className="mt-8 pt-6 border-t border-gray-800">
-                        <h2 className="text-xl font-extrabold text-white mb-4 flex items-center"><span className="bg-hey-church-red w-2 h-6 mr-3 rounded-full"></span>LATEST HEY SHOTS</h2>
+                        <h2 className="text-xl font-extrabold text-white mb-4 flex items-center"><span className="bg-hey-church-red w-2 h-6 mr-3 rounded-full"></span>{t('academy.latestHeyShots')}</h2>
                         <div className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide snap-x">
                             {heyShotSessions.map((session) => (
                                 <div key={session.id} onClick={() => setActivePathId('hey_shots')} className="flex-shrink-0 w-32 h-56 rounded-xl overflow-hidden relative shadow-lg cursor-pointer group snap-start bg-gradient-to-br from-red-800 to-red-950 border border-white/10 transition-transform hover:scale-105">
