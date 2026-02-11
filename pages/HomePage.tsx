@@ -253,49 +253,147 @@ const HomePage: React.FC = () => {
 
       {/* 2. Spirit Snack Box - REDESIGNED TO EXACTLY MATCH USER SCREENSHOT */}
       {spiritSnack && (
-          <section className="relative rounded-[2.5rem] shadow-2xl overflow-hidden p-8 pb-10 flex flex-col justify-between bg-gradient-to-br from-[#962323] to-[#4a0a0a] animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 group border border-white/5 min-h-[340px]">
-              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
-              <div className="relative z-10">
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="bg-white/10 text-yellow-500 px-2.5 py-1 rounded-full text-md font-black uppercase tracking-[0.3em] inline-block border-2 border-white/20 backdrop-blur-sm shadow-inner">
-                        {t('spirit_snack.today')}
+  <section
+  className="
+    relative
+    rounded-3xl sm:rounded-[2.5rem]
+    shadow-2xl
+    overflow-hidden overflow-x-hidden
+    p-4 sm:p-6 md:p-8
+    pb-7 sm:pb-9 md:pb-10
+    flex flex-col justify-between
+    bg-gradient-to-br from-[#962323] to-[#4a0a0a]
+    animate-in fade-in slide-in-from-bottom-4
+    duration-1000 delay-200
+    border border-white/5
+    min-h-[300px] sm:min-h-[320px] md:min-h-[340px]
+  "
+>
+  {/* Texture */}
+  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
 
-                    </div>
-                    <button 
-                        onClick={() => handleShare(`${t(spiritSnack.titleKey)}: "${t(spiritSnack.verseKey)}"`, "Daily Spirit Snack")}
-                        className="p-2.5 rounded-full bg-white/10 border-2 border-white/20 text-white/80 hover:text-white hover:border-white/40 transition-all active:scale-90 shadow-lg"
-                    >
-                        <Share2 size={20} />
-                    </button>
-                  </div>
-                  
-                  <div className="mb-8">
-                    <h2 className="text-3xl font-black text-white uppercase tracking-tighter leading-none drop-shadow-xl ">
-                        {t(spiritSnack.titleKey)}
-                    </h2>
-                  </div>
+  <div className="relative z-10">
+    {/* TOP ROW — FIXED */}
+    <div className="flex flex-wrap justify-between items-start gap-2 mb-5 sm:mb-6">
+      {/* TODAY BADGE — FIXED */}
+      <div
+        className="
+          bg-white/10 text-yellow-500
+          px-2 py-1
+          rounded-full
+          text-[11px] sm:text-sm md:text-md
+          font-black uppercase
+          tracking-[0.12em] sm:tracking-[0.3em]
+          border-2 border-white/20
+          backdrop-blur-sm
+          shadow-inner
+          max-w-full
+          break-words
+        "
+      >
+        {t('spirit_snack.today')}
+      </div>
 
-                  <div className="mb-12 pl-6 border-l-[4px] border-hey-church-yellow relative">
-                      <p className="text-2xl md:text-xl font-medium text-white leading-relaxed italic font-serif opacity-95">
-                          {t(spiritSnack.prayerKey)}
-                      </p>
-                  </div>
+      {/* SHARE BUTTON — FIXED */}
+      <button
+        onClick={() =>
+          handleShare(
+            `${t(spiritSnack.titleKey)}: "${t(spiritSnack.verseKey)}"`,
+            'Daily Spirit Snack'
+          )
+        }
+        className="
+          p-2
+          rounded-full
+          bg-white/10
+          border-2 border-white/20
+          text-white/80
+          hover:text-white hover:border-white/40
+          transition-all
+          active:scale-90
+          shadow-lg
+          shrink-0
+        "
+      >
+        <Share2 size={18} />
+      </button>
+    </div>
 
-                  <div className="flex items-end justify-between">
-                    <button 
-                        onClick={() => setShowGuidedPrayer(true)} 
-                        className="bg-white/10  border-2 border-white/30 text-yellow-500 px-3 py-1 rounded-full font-black text-md uppercase tracking-[0.2em] transition-all active:scale-95 hover:bg-white/10 shadow-xl"
-                    >
-                        {t('home.letsPray')}
+    {/* TITLE */}
+    <div className="mb-6 sm:mb-8">
+      <h2
+        className="
+          text-xl sm:text-2xl md:text-3xl
+          font-black text-white
+          uppercase tracking-tight
+          leading-snug sm:leading-none
+          drop-shadow-xl
+          break-words
+        "
+      >
+        {t(spiritSnack.titleKey)}
+      </h2>
+    </div>
 
-                    </button>
-                    
-                    <p className="text-xl font-black text-hey-church-yellow uppercase tracking-tighter drop-shadow-md pb-1">
-                        {t(spiritSnack.verseKey)}
-                    </p>
-                  </div>
-              </div>
-          </section>
+    {/* PRAYER */}
+    <div className="mb-8 sm:mb-10 md:mb-12 pl-4 sm:pl-6 border-l-4 border-hey-church-yellow">
+      <p
+        className="
+          text-base sm:text-lg md:text-xl
+          font-medium text-white
+          leading-relaxed
+          italic font-serif
+          opacity-95
+          break-words
+        "
+      >
+        {t(spiritSnack.prayerKey)}
+      </p>
+    </div>
+
+    {/* BOTTOM ROW — SAFE */}
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <button
+        onClick={() => setShowGuidedPrayer(true)}
+        className="
+          bg-white/10
+          border-2 border-white/30
+          text-yellow-500
+          px-3 py-1.5
+          rounded-full
+          font-black
+          text-xs sm:text-sm md:text-md
+          uppercase
+          tracking-[0.12em] sm:tracking-[0.2em]
+          transition-all
+          active:scale-95
+          hover:bg-white/20
+          shadow-xl
+          shrink-0
+        "
+      >
+        {t('home.letsPray')}
+      </button>
+
+      <p
+        className="
+          text-sm sm:text-lg md:text-xl
+          font-black
+          text-hey-church-yellow
+          uppercase tracking-tight
+          drop-shadow-md
+          text-right
+          max-w-full sm:max-w-[50%]
+          break-words
+        "
+      >
+        {t(spiritSnack.verseKey)}
+      </p>
+    </div>
+  </div>
+</section>
+
+
       )}
 
       {/* 3. Latest Sermon Box */}
