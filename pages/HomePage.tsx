@@ -257,7 +257,7 @@ const HomePage: React.FC = () => {
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
               <div className="relative z-10">
                   <div className="flex justify-between items-start mb-6">
-                    <div className="bg-white/10 text-white/90 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] inline-block border border-white/20 backdrop-blur-sm shadow-inner">
+                    <div className="bg-white/10 text-yellow-500 px-2.5 py-1 rounded-full text-md font-black uppercase tracking-[0.3em] inline-block border-2 border-white/20 backdrop-blur-sm shadow-inner">
                         {t('spirit_snack.today')}
 
                     </div>
@@ -270,13 +270,13 @@ const HomePage: React.FC = () => {
                   </div>
                   
                   <div className="mb-8">
-                    <h2 className="text-4xl font-black text-white uppercase tracking-tighter leading-none drop-shadow-xl italic">
+                    <h2 className="text-3xl font-black text-white uppercase tracking-tighter leading-none drop-shadow-xl ">
                         {t(spiritSnack.titleKey)}
                     </h2>
                   </div>
 
                   <div className="mb-12 pl-6 border-l-[4px] border-hey-church-yellow relative">
-                      <p className="text-2xl md:text-3xl font-medium text-white leading-relaxed italic font-serif opacity-95">
+                      <p className="text-2xl md:text-xl font-medium text-white leading-relaxed italic font-serif opacity-95">
                           {t(spiritSnack.prayerKey)}
                       </p>
                   </div>
@@ -284,7 +284,7 @@ const HomePage: React.FC = () => {
                   <div className="flex items-end justify-between">
                     <button 
                         onClick={() => setShowGuidedPrayer(true)} 
-                        className="bg-transparent border-2 border-white/30 text-white px-8 py-2.5 rounded-full font-black text-xs uppercase tracking-[0.2em] transition-all active:scale-95 hover:bg-white/10 shadow-xl"
+                        className="bg-white/10  border-2 border-white/30 text-yellow-500 px-3 py-1 rounded-full font-black text-md uppercase tracking-[0.2em] transition-all active:scale-95 hover:bg-white/10 shadow-xl"
                     >
                         {t('home.letsPray')}
 

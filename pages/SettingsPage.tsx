@@ -105,7 +105,7 @@ const SettingsPage: React.FC = () => {
     const languages: { code: 'English' | 'German' | 'French'; label: string }[] = [
         { code: 'English', label: 'English' },
         { code: 'German', label: 'Deutsch' },
-        { code: 'French', label: 'Français' },
+        // { code: 'French', label: 'Français' },
     ];
 
     return (

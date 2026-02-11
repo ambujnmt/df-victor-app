@@ -41,7 +41,7 @@ const WelcomePage: React.FC = () => {
     const languages: { code: Language; label: string }[] = [
         { code: 'German', label: 'Deutsch' },
         { code: 'English', label: 'English' },
-        { code: 'French', label: 'Français' },
+        // { code: 'French', label: 'Français' },
     ];
 
     return (

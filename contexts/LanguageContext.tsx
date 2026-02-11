@@ -13,7 +13,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode; user: User | null }> = ({ children, user }) => {
-  const [language, setLanguage] = useState<Language>('English');
+  const [language, setLanguage] = useState<Language>('German');
 
   useEffect(() => {
     // Set language from user profile if it exists, otherwise default to English
