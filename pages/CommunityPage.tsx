@@ -12,6 +12,9 @@ import { FeedInteractionBar } from '../components/FeedInteractionBar';
 // FIX: Import getDailySpiritSnack to provide snack for GuidedPrayerModal
 import { getDailySpiritSnack } from '../constants/staticData';
 
+
+
+
 const PrayerRequestCard: React.FC<{
     request: PrayerRequest;
     currentUserId: string;
@@ -65,7 +68,12 @@ const PrayerRequestCard: React.FC<{
     );
 };
 
-const PostCard: React.FC<{ post: Post; currentUser: User }> = ({ post, currentUser }) => {
+const PostCard: React.FC<{
+  post: Post;
+  currentUser: User;
+  onAddComment: (postId: string, comment: any) => void;
+}> = ({ post, currentUser, onAddComment }) => {
+
     const formatTimestamp = (timestamp: Timestamp | string) => {
         if (!timestamp) return 'Just now';
         if (typeof timestamp === 'string') return new Date(timestamp).toLocaleString();
@@ -88,7 +96,11 @@ const PostCard: React.FC<{ post: Post; currentUser: User }> = ({ post, currentUs
       {post.imageUrl && <img src={post.imageUrl} alt="Post content" className="w-full h-auto" />}
       
       {/* Feature 1: Interaction Bar Integration */}
-      <FeedInteractionBar post={post} currentUser={currentUser} />
+<FeedInteractionBar
+  post={post}
+  currentUser={currentUser}
+  onAddComment={onAddComment}
+/>
 
       {/* Basic Comments Display (Scrollable) */}
       {post.comments?.length > 0 && (
@@ -191,6 +203,18 @@ const CommunityPage: React.FC = () => {
   // FIX: Added spiritSnack state to satisfy GuidedPrayerModal requirements
   const [spiritSnack, setSpiritSnack] = useState<SpiritSnack | null>(null);
   
+
+const handleAddComment = (postId: string, newComment: any) => {
+  setPosts(prevPosts =>
+    prevPosts.map(post =>
+      post.id === postId
+        ? { ...post, comments: [...(post.comments || []), newComment] }
+        : post
+    )
+  );
+};
+
+
   const fetchData = async () => {
         setLoading(true);
         try {
@@ -301,7 +325,14 @@ const CommunityPage: React.FC = () => {
              {loading ? <div className="text-center p-8 flex flex-col items-center justify-center text-gray-400"><Loader2 className="animate-spin h-8 w-8 mb-2" /><p>{t('community.loading_feed')}</p></div> : posts.length > 0 ? (
                 <div className="space-y-4">
                     {posts.map(post => (
-                        <PostCard key={post.id} post={post} currentUser={currentUser} />
+                        // <PostCard key={post.id} post={post} currentUser={currentUser} />
+                        <PostCard
+  key={post.id}
+  post={post}
+  currentUser={currentUser}
+  onAddComment={handleAddComment}
+/>
+
                     ))}
                 </div>
             ) : (

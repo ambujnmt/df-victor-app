@@ -5,13 +5,15 @@ import { Post, User, Comment } from '../types';
 import { addCommentToPost, updatePostReaction } from '../services/firebaseService';
 
 interface FeedInteractionBarProps {
-    post: Post;
-    currentUser: User;
+  post: Post;
+  currentUser: User;
+  onAddComment: (postId: string, comment: Comment) => void;
 }
+
 
 const REACTIONS = ['🙌', '🙏', '❤️', '🔥', '💪', '✨'];
 
-export const FeedInteractionBar: React.FC<FeedInteractionBarProps> = ({ post, currentUser }) => {
+export const FeedInteractionBar: React.FC<FeedInteractionBarProps> = ({ post, currentUser,onAddComment }) => {
     const [isCommentOpen, setIsCommentOpen] = useState(false);
     const [commentText, setCommentText] = useState('');
     const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
@@ -43,33 +45,56 @@ export const FeedInteractionBar: React.FC<FeedInteractionBarProps> = ({ post, cu
         }
     };
 
-    const handleSendComment = async () => {
-        if (!commentText.trim()) return;
+//     const handleSendComment = async () => {
+//         if (!commentText.trim()) return;
 
-const newComment: Comment = {
+// const newComment: Comment = {
+//     user: {
+//         id: currentUser.id,
+//         name: currentUser.name,
+//         avatar: currentUser.avatar
+//     },
+//     text: commentText.trim(),
+//     timestamp: new Date().toISOString()
+// };
+
+
+
+//         const tempCommentText = commentText;
+//         setCommentText('');
+
+//         try {
+//             await addCommentToPost(post.id, newComment);
+//             // Parent usually handles the feed refresh or uses onSnapshot for real-time updates
+//         } catch (err) {
+//             // console.error("Failed to add comment", err);
+//             setCommentText(tempCommentText);
+//             // alert("Failed to post comment.");
+//         }
+//     };
+
+    const handleSendComment = async () => {
+  if (!commentText.trim()) return;
+
+  const newComment = {
+    text: commentText,
+    timestamp: new Date().toISOString(),
     user: {
-        id: currentUser.id,
-        name: currentUser.name,
-        avatar: currentUser.avatar
+      id: currentUser.id,
+      name: currentUser.name,
+      avatar: currentUser.avatar,
     },
-    text: commentText.trim(),
-    timestamp: new Date().toISOString()
+  };
+
+  // 🔥 Save to Firestore
+  await addCommentToPost(post.id, newComment);
+
+  // ✅ Update UI instantly
+  onAddComment(post.id, newComment);
+
+  setCommentText('');
 };
 
-
-
-        const tempCommentText = commentText;
-        setCommentText('');
-
-        try {
-            await addCommentToPost(post.id, newComment);
-            // Parent usually handles the feed refresh or uses onSnapshot for real-time updates
-        } catch (err) {
-            // console.error("Failed to add comment", err);
-            setCommentText(tempCommentText);
-            // alert("Failed to post comment.");
-        }
-    };
 
     return (
         <div className="w-full">
