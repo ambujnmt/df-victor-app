@@ -102,17 +102,21 @@ const HomePage: React.FC = () => {
   const [showGuidedPrayer, setShowGuidedPrayer] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
 
-  useEffect(() => {
-    setSpiritSnack(getDailySpiritSnack());
-    const randomIndex = Math.floor(Math.random() * QUOTES.length);
-    setDailyQuote(QUOTES[randomIndex]);
+ useEffect(() => {
+  setSpiritSnack(getDailySpiritSnack());
 
-    const fetchAppData = async () => {
-        const globalContent = await getGlobalContent();
-        if (globalContent?.latestMessage) setLatestMessage(globalContent.latestMessage);
-    };
-    fetchAppData();
-  }, []);
+  const randomIndex = Math.floor(Math.random() * QUOTES.length);
+  setDailyQuote(QUOTES[randomIndex]);
+
+  const fetchAppData = async () => {
+    const globalContent = await getGlobalContent();
+    if (globalContent?.latestMessage) {
+      setLatestMessage(globalContent.latestMessage);
+    }
+  };
+
+  fetchAppData();
+}, []);
 
   const handleShareApp = async () => {
     const shareData = {
@@ -528,11 +532,12 @@ const HomePage: React.FC = () => {
 
     {isVideoPlayerOpen && <VideoPlayerModal videoId={latestMessage.videoId} onClose={() => setIsVideoPlayerOpen(false)} />}
     {showGuidedPrayer && spiritSnack && (
-        <GuidedPrayerModal 
-            snack={spiritSnack} 
-            onClose={() => setShowGuidedPrayer(false)} 
-        />
-    )}
+  <GuidedPrayerModal
+    snack={spiritSnack}
+    onClose={() => setShowGuidedPrayer(false)}
+  />
+)}
+
     {showInviteModal && (
         <InviteFriendModal 
             user={user} 

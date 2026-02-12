@@ -336,7 +336,7 @@ export const GuidedPrayerModal: React.FC<GuidedPrayerModalProps> = ({ snack, onC
                         </div>
 
                         {/* --- BRILLIANT PRAYER CARD (SCREENSHOT STYLE) --- */}
-                        <div ref={prayerCardRef} className="w-full max-w-[340px] prayer-card-brilliant rounded-[2.5rem] p-8 pb-6 shadow-[0_40px_120px_rgba(0,0,0,0.8)] border border-white/10 relative overflow-hidden flex flex-col">
+                        <div ref={prayerCardRef} className="w-full max-w-[340px] prayer-card-brilliant rounded-[2.5rem] p-8 pb-6 shadow-[0_40px_120px_rgba(0,0,0,0.8)] border border-white/10 relative my-14 flex flex-col">
                             <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl -mr-24 -mt-24 pointer-events-none"></div>
                             
                             {/* Card Close Icon (Visual only) */}
@@ -365,7 +365,7 @@ export const GuidedPrayerModal: React.FC<GuidedPrayerModalProps> = ({ snack, onC
                                 
                                 {/* Bible Verse - CENTERED, CAPS, YELLOW */}
                                 <p className="text-center text-hey-church-yellow font-black text-sm uppercase tracking-widest mb-1.5 drop-shadow-md">
-                                    {snack.reference}
+                                    {t(snack.verseKey)}
                                 </p>
                                 
                                 {/* Branding - CENTERED, SMALL, DIRECTLY BELOW VERSE */}
