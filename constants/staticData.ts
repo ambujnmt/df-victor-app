@@ -74,16 +74,26 @@ export const getDailySpiritSnack = (): SpiritSnack => {
     const date = now.getDate();
     const year = now.getFullYear();
 
-    if (month === 11 && (date === 24 || date === 25 || date === 26)) return SPIRIT_SNACKS.find(s => s.id === 'C')!;
+    if (month === 11 && (date === 24 || date === 25 || date === 26)) {
+        return SPIRIT_SNACKS.find(s => s.id === 'C') || SPIRIT_SNACKS[0];
+    }
+
     const easter = getEasterDate(year);
-    if (now.toDateString() === easter.toDateString()) return SPIRIT_SNACKS.find(s => s.id === 'E')!;
+    if (now.toDateString() === easter.toDateString()) {
+        return SPIRIT_SNACKS.find(s => s.id === 'E') || SPIRIT_SNACKS[0];
+    }
+
     const pentecost = new Date(easter);
     pentecost.setDate(easter.getDate() + 49); 
-    if (now.toDateString() === pentecost.toDateString()) return SPIRIT_SNACKS.find(s => s.id === 'P')!;
+    if (now.toDateString() === pentecost.toDateString()) {
+        return SPIRIT_SNACKS.find(s => s.id === 'P') || SPIRIT_SNACKS[0];
+    }
 
     const start = new Date(year, 0, 0);
     const diff = now.getTime() - start.getTime();
-    const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
     
-    return SPIRIT_SNACKS.find(s => s.id === dayOfYear.toString()) || SPIRIT_SNACKS.find(s => s.id === '16')!;
+    const snack = SPIRIT_SNACKS.find(s => s.id === dayOfYear.toString());
+    return snack || SPIRIT_SNACKS[dayOfYear % SPIRIT_SNACKS.length];
 };
